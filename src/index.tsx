@@ -1,12 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { BrowserRouter as Router ,  Routes, Route} from 'react-router-dom';
+import Character from './character';
+import List from './list';
+
+export const queryClient = new QueryClient()
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <Routes>
+          <Route path="/character" element={<Character />} />
+          <Route path="/" element={<List />} />
+     </Routes>
+    </QueryClientProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
